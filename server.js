@@ -2,6 +2,8 @@ let express = require('express');
 let app = express();
 let bodyParser = require('body-parser');
 let assignment = require('./routes/assignments');
+let connexion = require('./routes/connexion');
+let authentification = require('./middleware/authentification');
 
 let mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -54,6 +56,10 @@ app.route(prefix + '/assignments/:id')
 app.route(prefix + '/assignments')
   .post(assignment.postAssignment)
   .put(assignment.updateAssignment);
+app.route(prefix + '/connexion')
+    .post(connexion.login)
+app.route(prefix + '/inscription')
+    .post(connexion.signup);
 
 
 // On démarre le serveur

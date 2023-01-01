@@ -8,7 +8,8 @@ function signup(req, res, next){
         .then(hash =>{
             const utilisateur = new Utilisateur({
                 pseudo: req.body.pseudo,
-                motDePasse: hash
+                motDePasse: hash,
+                isAdmin: req.body.isAdmin
             });
             utilisateur.save()
                 .then(() => res.status(201).json({message: 'Utilisateur créé'}))
@@ -29,8 +30,10 @@ function login(req, res, next){
                     if(!valid){
                         return res.status(401).json({error: 'Mot de passe incorrect'});
                     }
+
                     res.status(200).json({
                         utilisateurId: utilisateur._id,
+                        isAdmin: utilisateur.isAdmin,
                         token: jwt.sign( //on encode un nouveau token qui expire dans 24h. Après ce délai, le token ne sera plus valide et l'utilisateur devra se reconnecter
                             {utilisateurId: utilisateur._id},
                             'RANDOM_TOKEN_SECRET',

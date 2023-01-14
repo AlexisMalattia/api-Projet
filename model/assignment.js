@@ -11,6 +11,7 @@ let AssignmentSchema = Schema({
     matiere: String,
     professeur: String,
     avatar: String,
+    note: Number
 });
 AssignmentSchema.plugin(aggregatePaginate);
 // C'est à travers ce modèle Mongoose qu'on pourra faire le CRUD

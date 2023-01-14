@@ -34,6 +34,7 @@ function login(req, res, next){
                     res.status(200).json({
                         utilisateurId: utilisateur._id,
                         isAdmin: utilisateur.isAdmin,
+                        pseudo: utilisateur.pseudo,
                         token: jwt.sign( //on encode un nouveau token qui expire dans 24h. Après ce délai, le token ne sera plus valide et l'utilisateur devra se reconnecter
                             {utilisateurId: utilisateur._id},
                             'RANDOM_TOKEN_SECRET',
